@@ -11,6 +11,11 @@
 <script setup>
 import HomeNavBar from "@/views/home/home-componets/homeNavBar.vue";
 import HomePosition from "@/views/home/home-componets/homePosition.vue";
+import useHomeStore from "@/stores/modules/home_store";
+
+const homeStore = useHomeStore()
+homeStore.fetchSuggestData()
+const data = homeStore.hotSuggests
 </script>
 
 <style lang="less" scoped>
