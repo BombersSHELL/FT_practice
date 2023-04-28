@@ -12,7 +12,14 @@ const useCityStore = defineStore("city",{
         async fetchCitiesData(){
             const res = await getCitiesData()
             return this.allCities = res.data
-        }
+        },
+        // async getPosition(){
+        //     const res = await navigator.geolocation.getCurrentPosition(res=>{
+        //         return res
+        //     })
+        //
+        //     return this.currentCity.cityName = res
+        // }
     }
 })
 

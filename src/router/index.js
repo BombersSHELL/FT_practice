@@ -31,6 +31,11 @@ const router = createRouter({
 			path: '/city',
 			name: 'city',
 			component: () => import('@/views/city/cities.vue'),
+		},
+		{
+			path: '/search',
+			name: 'search',
+			component: () => import('@/views/home/home-componets/homeSearchResults.vue'),
 			meta: {
 				hideFooter: true
 			}

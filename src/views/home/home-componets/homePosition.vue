@@ -1,10 +1,10 @@
 <template>
 	<div class="searchPosition">
 		<div class="location">
-			<div class="city" @click="currentCity">{{ homeCurrentCity }}</div>
+			<div class="city" @click="changeCity">{{ homeCurrentCity }}</div>
 			<div class="position">
 				<span class="text">我的位置</span>
-				<img src="@/assets/img/home/icon_location.png" alt="">
+				<img src="@/assets/img/home/icon_location.png" alt="" @click="getPosition">
 			</div>
 		</div>
 <!--		日期区域		-->
@@ -44,6 +44,11 @@
 				</div>
 			</template>
 		</div>
+		<div class="location searchBox">
+			<div class="btn" @click="redirect">搜索</div>
+		</div>
+		
+		
 	</div>
 </template>
 
@@ -54,7 +59,18 @@ import {formatMonthDay, getDays} from "@/utils/format_date"
 import {ref} from "vue";
 import useHomeStore from "@/stores/modules/home_store";
 import {storeToRefs} from "pinia";
-function currentCity(){
+
+
+const getPosition = ()=>{
+	navigator.geolocation.getCurrentPosition(res=>{
+		console.log(res)
+		
+	}),err=>{
+		console.log("位置获取失败",err)
+	}
+}
+
+function changeCity(){
 	router.push('/city')
 }
 
@@ -81,6 +97,18 @@ const onConfirm = (data)=>{
 
 const homeStore = useHomeStore()
 const {hotSuggests} = storeToRefs(homeStore)
+
+const redirect = ()=>{
+	router.push({
+		path:'/search',
+		query:{
+			startDate:startDate.value,
+			endDate:endDate.value
+		}
+	})
+}
+
+
 </script>
 
 <style lang="less" scoped>
@@ -158,12 +186,26 @@ const {hotSuggests} = storeToRefs(homeStore)
 	}
 
 .hot-suggests{
+	height: 80px;
 	.item{
 		padding: 3px 5px;
 		margin: 3px ;
 		border-radius: 14px;
 		font-size: 12px;
 		line-height: 1;
+	}
+}
+
+.searchBox{
+	.btn{
+		width: 342px;
+		height: 44px;
+		margin-top: 20px;
+		text-align: center;
+		font-size: 18px;
+		line-height: 44px;
+		color: #fff;
+		background-image: linear-gradient(90deg, #fa8c1d, #fcaf3f);
 	}
 }
 </style>
