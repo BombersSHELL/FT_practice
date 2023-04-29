@@ -6,6 +6,9 @@
 		</div>
 		<home-position/>
 		<home-category/>
+		<div class="searchBar" v-if="isShowBar">
+			<home-search-bar/>
+		</div>
 		<home-house-list/>
 <!--		<button @click="getMore">Give me</button>-->
 	</div>
@@ -18,26 +21,35 @@ import useHomeStore from "@/stores/modules/home_store";
 import HomeCategory from "@/views/home/home-componets/homeCategory.vue";
 import HomeHouseList from "@/views/home/home-componets/homeHouseList.vue";
 import useScroll from "@/hooks/scrollHooker";
-import {watch} from "vue";
+import {ref, watch} from "vue";
+import HomeSearchBar from "@/components/homeSearchBar/homeSearchBar.vue";
 
 const homeStore = useHomeStore()
 homeStore.fetchSuggestData()
 homeStore.fetchCategoriesData()
 homeStore.fetchHouseListData()
 
-const isReachBottom = useScroll()
+const {isReachBottom, scrollTop} = useScroll()
+console.log(isReachBottom)
 watch(isReachBottom, (newValue)=>{
 	if (newValue){
 		homeStore.fetchHouseListData().then(()=>{
+			console.log("**********")
 		isReachBottom.value =false
 	})
 	}
 }
 )
-
 // useScroll(()=>{
 // 	homeStore.fetchHouseListData()
 // })
+
+const isShowBar = ref(false)
+
+watch(scrollTop, (newValue)=>{
+	isShowBar.value = newValue>100
+})
+
 
 </script>
 
@@ -53,5 +65,14 @@ watch(isReachBottom, (newValue)=>{
 }
 button{
 	height: 300px;
+}
+.searchBar{
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	z-index: 9;
+	padding: 16px 16px 10px;
+	background-color: #fff;
 }
 </style>

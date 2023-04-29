@@ -29,7 +29,7 @@ const props = defineProps({
         default:()=>{}
     }
 })
-console.log(props.itemData)
+// console.log(props.itemData)
 
 const score = computed(()=>{
     return Number(props.itemData.commentScore)

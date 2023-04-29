@@ -59,6 +59,7 @@ import {formatMonthDay, getDays} from "@/utils/format_date"
 import {ref} from "vue";
 import useHomeStore from "@/stores/modules/home_store";
 import {storeToRefs} from "pinia";
+import useMainStore from "@/stores/modules/mian_store";
 
 
 const getPosition = ()=>{
@@ -76,15 +77,17 @@ function changeCity(){
 
 const cityStore = useCityStore()
 const homeCurrentCity = cityStore.currentCity.cityName
-
-const nowDate = new Date()
-const tmoDate = new Date()
+const mainStore = useMainStore()
+// const nowDate = new Date()
+// const tmoDate = new Date()
 const showCalender = ref(false)
-tmoDate.setDate(nowDate.getDate()+1)
+// tmoDate.setDate(nowDate.getDate()+1)
 
-const startDate = ref(formatMonthDay(nowDate))
-const endDate = ref(formatMonthDay(tmoDate))
-const dayCount = ref(getDays(nowDate,tmoDate))
+const {nowDate, tmoDate} = storeToRefs(mainStore)
+console.log(nowDate,tmoDate)
+const startDate = ref(formatMonthDay(nowDate.value))
+const endDate = ref(formatMonthDay(tmoDate.value))
+const dayCount = ref(getDays(nowDate.value,tmoDate.value))
 console.log(dayCount.value)
 const onConfirm = (data)=>{
 	console.log(data)
