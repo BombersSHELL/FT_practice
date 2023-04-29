@@ -83,16 +83,28 @@ const mainStore = useMainStore()
 const showCalender = ref(false)
 // tmoDate.setDate(nowDate.getDate()+1)
 
+
+// 将日期数据存入pinia，供两个组件一起使用
+
 const {nowDate, tmoDate} = storeToRefs(mainStore)
-console.log(nowDate,tmoDate)
-const startDate = ref(formatMonthDay(nowDate.value))
-const endDate = ref(formatMonthDay(tmoDate.value))
 const dayCount = ref(getDays(nowDate.value,tmoDate.value))
 console.log(dayCount.value)
+console.log(nowDate,tmoDate)
+
+// 获取换日期格式
+const startDate = ref(formatMonthDay(nowDate.value))
+const endDate = ref(formatMonthDay(tmoDate.value))
+
+
 const onConfirm = (data)=>{
 	console.log(data)
+	// 改变pinia里的值
+	mainStore.nowDate = data[0]
+	mainStore.tmoDate = data[1]
 	startDate.value = formatMonthDay(data[0])
 	endDate.value = formatMonthDay(data[1])
+	
+	
 	dayCount.value = getDays(data[0], data[1])
 	console.log(dayCount.value)
 	showCalender.value = false

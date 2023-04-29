@@ -12,14 +12,14 @@ export default function useScroll(){
 		scrollHeight.value = document.documentElement.scrollHeight
 		console.log('--------')
 		// console.log(reachBottomCB())
-		if (clientHeight.value+scrollTop.value >= scrollHeight.value/2){
+		if (clientHeight.value+scrollTop.value >= scrollHeight.value){
 			// if (reachBottomCB) {
 			// 	reachBottomCB()
 			// }
 			isReachBottom.value=true
 			console.log("到达底部")
 		}
-	},200)
+	},100)
 
 	onMounted(()=>{
 		window.addEventListener("scroll",scrollGetter)

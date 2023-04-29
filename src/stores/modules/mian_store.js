@@ -7,7 +7,8 @@ tmoDate.setDate(nowDate.getDate()+1)
 const useMainStore = defineStore("mian",{
 	state:()=>({
 		nowDate : nowDate,
-		tmoDate : tmoDate
+		tmoDate : tmoDate,
+		isShowLoading:false
 	})
 })
 

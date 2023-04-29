@@ -6,7 +6,7 @@
 		</div>
 		<home-position/>
 		<home-category/>
-		<div class="searchBar" v-if="isShowBar">
+		<div class="homeSearchBar" v-if="isShowBar">
 			<home-search-bar/>
 		</div>
 		<home-house-list/>
@@ -47,7 +47,7 @@ watch(isReachBottom, (newValue)=>{
 const isShowBar = ref(false)
 
 watch(scrollTop, (newValue)=>{
-	isShowBar.value = newValue>100
+	isShowBar.value = newValue>350
 })
 
 
@@ -66,13 +66,13 @@ watch(scrollTop, (newValue)=>{
 button{
 	height: 300px;
 }
-.searchBar{
+.homeSearchBar{
 	position: fixed;
 	left: 0;
 	top: 0;
 	right: 0;
 	z-index: 9;
-	padding: 16px 16px 10px;
+	padding: 16px 16px 10px ;
 	background-color: #fff;
 }
 </style>

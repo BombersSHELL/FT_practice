@@ -3,11 +3,11 @@
 		<div class="dateNode">
 				<div class="item start">
 					<div class="name">住</div>
-					<div class="date">07.25</div>
+					<div class="date">{{ startDateStr }}</div>
 				</div>
 				<div class="item end">
 					<div class="name">离</div>
-					<div class="date">07.26</div>
+					<div class="date">{{ endDateStr }}</div>
 				</div>
 			</div>
 		<div class="content">
@@ -20,6 +20,15 @@
 </template>
 
 <script setup>
+import useMainStore from "@/stores/modules/mian_store";
+import {storeToRefs} from "pinia";
+import {formatMonthDay} from "@/utils/format_date";
+import {ref} from "vue";
+const mianStore = useMainStore()
+// pinia提供日期数据，供两个组件一起使用
+const {nowDate, tmoDate} = storeToRefs(mianStore)
+const startDateStr = ref(formatMonthDay(nowDate.value,'MM.DD'))
+const endDateStr = ref(formatMonthDay(tmoDate.value, 'MM.DD'))
 
 </script>
 
@@ -63,7 +72,7 @@
 			-webkit-transform: rotate(45deg);
       -ms-transform: rotate(45deg);
 			position: absolute;
-			bottom: 0px;
+			bottom: 10px;
 		}
 	}
 	.content{
