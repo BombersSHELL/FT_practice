@@ -3,8 +3,16 @@
         <div class="text">发现更多</div>
         <div class="list">
             <template v-for="(item,index) in houseList" :key="index">
-                <house_lists_v9 v-if="item.discoveryContentType === 9" :item-data="item.data"/>
-                <house_lists_v3 v-else-if="item.discoveryContentType === 3" :item-data="item.data"/>
+                <house_lists_v9
+		                v-if="item.discoveryContentType === 9"
+		                :item-data="item.data"
+		                @click="toDetail(item.data)"
+                  />
+                <house_lists_v3
+		                v-else-if="item.discoveryContentType === 3"
+		                :item-data="item.data"
+		                @click="toDetail(item.data)"
+                />
             </template>
         </div>
     </div>
@@ -15,9 +23,15 @@ import House_lists_v9 from "@/components/homeComponets-v9/house_lists_v9.vue";
 import House_lists_v3 from "@/components/homeComponets-v3/house_lists_v3.vue";
 import useHomeStore from "@/stores/modules/home_store";
 import {storeToRefs} from "pinia";
+import {useRouter} from "vue-router";
 
+const router = useRouter()
 const homeStore = useHomeStore()
 const {houseList} = storeToRefs(homeStore)
+const toDetail = (item)=>{
+	console.log(item.houseId)
+	router.push("/detail/"+item.houseId)
+}
 </script>
 
 <style lang="less" scoped>

@@ -39,6 +39,11 @@ const router = createRouter({
 			meta: {
 				hideFooter: true
 			}
+		},
+		{
+			path: '/detail/:id',
+			name: 'detail',
+			component: () => import('@/views/detail/HouseDetail.vue'),
 		}
 	]
 })
