@@ -4,6 +4,10 @@ import {computed, ref} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {fetchDetailData} from "@/services";
 import DetailSwiper from "@/views/detail/detailComponets/detailSwiper.vue";
+import DetailTile from "@/views/detail/detailComponets/detailTile.vue";
+import DetailFacility from "@/views/detail/detailComponets/detailFacility.vue";
+import DetailHouseLord from "@/views/detail/detailComponets/detailHouseLord.vue";
+import DetailComments from "@/views/detail/detailComponets/detailComments.vue";
 
 const router = useRouter()
 const route = useRoute()
@@ -31,7 +35,13 @@ const onClickLeft = ()=>{
 			left-arrow
 			@click-left="onClickLeft"
 		/>
-		<detail-swiper :swipe-data="mainPart.topModule.housePicture.housePics"/>
+		<div class="main" v-if="mainPart">
+			<detail-swiper :swipe-data="mainPart.topModule.housePicture.housePics"/>
+			<detail-tile :titleData="mainPart.topModule"/>
+			<detail-facility :facilities="mainPart.dynamicModule.facilityModule.houseFacility"></detail-facility>
+			<detail-house-lord :lord-info="mainPart.dynamicModule.landlordModule"/>
+			<detail-comments :comments-data="mainPart.dynamicModule.commentModule"/>
+		</div>
 	</div>
 </template>
 
