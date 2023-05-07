@@ -40,6 +40,8 @@ const showTabControl = computed(()=>{
 })
 
 const getSectionRef = (value)=>{
+	// 判断value是否为null 否则在每次挂载或卸载时，对value进行读取时即会报错，所以需要进行判断
+	if( !value ) return
 	const name = value.$el.getAttribute("name")
 	if (name!=null){
 		sectionEls.value[name] = value.$el
