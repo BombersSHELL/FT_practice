@@ -1,6 +1,6 @@
 <script setup>
 
-import {computed, ref} from "vue";
+import {computed, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {fetchDetailData} from "@/services";
 import DetailSwiper from "@/views/detail/detailComponets/detailSwiper.vue";
@@ -13,6 +13,8 @@ import DetailPriceDescription from "@/views/detail/detailComponets/detailPriceDe
 import DetailMap from "@/views/detail/detailComponets/detailMap.vue";
 import TabControl from "@/components/tab-control/tab-control.vue";
 import useScroll from "@/hooks/scrollHooker";
+import tabControl from "@/components/tab-control/tab-control.vue";
+import tabControlRef from "underscore/cjs/underscore";
 
 const router = useRouter()
 const route = useRoute()
@@ -65,6 +67,29 @@ const tabClick = (index)=>{
 	behavior:"smooth"
 	})
 }
+
+
+// tabbar随动，获取scrollTop至一个数组
+const tabControlRef1 = ref()
+
+watch(scrollTop, (newValue)=>{
+	const els = Object.values(sectionEls.value)
+	const values = els.map(el=>el.offsetTop)
+	console.log(values)
+
+	let index = values.length - 1
+	for (let i = 0; i < values.length; i++) {
+		const value = values[i];
+		if (value>=newValue+44){
+			index = i -1
+			break
+		}
+	}
+
+	tabControlRef1.value?.setCurrentIndex(index)
+})
+
+
 </script>
 
 <template>
@@ -73,6 +98,7 @@ const tabClick = (index)=>{
 								 class="tabs"
 								 :titles="titles"
 								 @tabItemClick="tabClick"
+								 ref="tabControlRef1"
 		/>
 		<van-nav-bar
 			title="Title"
